@@ -1,15 +1,11 @@
 package web.controller;
 
 import model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import web.dao.UserDAO;
-import web.dao.UserDAOImpl;
 import web.service.UserService;
-import web.service.UserServiceImpl;
 
 import javax.validation.Valid;
 
@@ -17,15 +13,11 @@ import javax.validation.Valid;
 @RequestMapping("/users")
 public class UsersController {
 
-    private UserService userDAO;
+    private final UserService userDAO;
 
-    @Autowired
-    public UsersController(UserServiceImpl userDAO) {
+    public UsersController(UserService userDAO) {
         this.userDAO = userDAO;
     }
-
-//    private UserService userService;
-
 
     @GetMapping()
     public String index(Model model) {
@@ -60,7 +52,7 @@ public class UsersController {
         return "users/edit";
     }
 
-    @DeleteMapping("/{id}")
+    @PostMapping("/delete/{id}")
     public String delete(@PathVariable("id") int id) {
         userDAO.delete(id);
         return "redirect:/users";
