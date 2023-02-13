@@ -1,13 +1,9 @@
 package web.service;
 
 import model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import web.config.Util;
 import web.dao.UserDAO;
-import web.dao.UserDAOImpl;
-import web.dao.UserDAOJPAImpl;
 
 import java.util.List;
 
@@ -16,9 +12,10 @@ public class UserServiceImpl implements UserService{
 
     private final UserDAO userDAO;
 
-    public UserServiceImpl(UserDAOJPAImpl userDAO) {
+    public UserServiceImpl(@Qualifier("userDAOJPAImpl") UserDAO userDAO) {
         this.userDAO = userDAO;
     }
+
 
     @Override
     public List<User> index() {
@@ -27,21 +24,21 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User show(int id) {
-        return userDAO.show(id);
+        return userDAO.showUser(id);
     }
 
     @Override
     public void save(User user) {
-        userDAO.save(user);
+        userDAO.saveUser(user);
     }
 
     @Override
     public void update(int id, User updatedUser) {
-        userDAO.update(id, updatedUser);
+        userDAO.updateUser(id, updatedUser);
     }
 
     @Override
     public void delete(int id) {
-        userDAO.delete(id);
+        userDAO.deleteUser(id);
     }
 }
