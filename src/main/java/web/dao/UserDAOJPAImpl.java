@@ -3,14 +3,14 @@ package web.dao;
 import model.User;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.slf4j.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Component
 public class UserDAOJPAImpl implements UserDAO {
-    private static final Logger log = LoggerFactory.getLogger(UserDAOJPAImpl.class);
+    private static final Logger log = Logger.getLogger("UserDAOJPAImpl");
 
     @PersistenceContext
     private EntityManager entityManager;
